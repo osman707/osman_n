@@ -13,5 +13,15 @@ class Location extends Model
 
     use HasFactory;
 
+    public function regions()
+    {
+        return $this->hasMany(Region::class);
+    }
+
+    public function listings()
+    {
+        return $this->hasMany(Listing::class);
+    }
+
     public $timestamps = false;
 }

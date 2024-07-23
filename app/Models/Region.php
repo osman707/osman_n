@@ -11,7 +11,13 @@ class Region extends Model
         'id',
     ];
 
+    public function location()
+    {
+
+        return $this->belongsTo(Location::class);
+    }
     use HasFactory;
+
 
     public $timestamps = false;
 }
