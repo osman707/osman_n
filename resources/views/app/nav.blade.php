@@ -8,7 +8,7 @@
             <ul class="navbar-nav me-auto">
                 <li class="nav-item">
 {{--                    <a class="nav-link" href="{{ route('jobs.index') }}">Jobs</a>--}}
-                    <a class="nav-link" href="#">Jobs</a>
+                    <a class="nav-link" href="{{route('jobs.index')}}">Jobs</a>
                 </li>
             </ul>
         </div>

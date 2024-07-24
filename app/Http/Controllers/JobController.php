@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Company;
 use App\Models\Listing;
+use App\Models\Location;
 use App\Models\Occupation;
+use App\Models\Region;
+use App\Models\Time;
 use Illuminate\Http\Request;
 
 class JobController extends Controller
@@ -54,18 +58,35 @@ class JobController extends Controller
             ->when(isset($f_maxSalary), function ($query) use ($f_maxSalary) {
                 return $query->where('salary', '<=', $f_maxSalary);
             })
-            ->with('user', 'location', 'brand', 'brandModel', 'year', 'color')
+            ->with('location', 'occupation', 'region', 'company', 'time')
             ->when(isset($f_sortBy), function ($query) use ($f_sortBy) {
                 if ($f_sortBy == 'lowToHigh') {
-                    return $query->orderBy('price');
+                    return $query->orderBy('salary');
                 } elseif ($f_sortBy == 'highToLow') {
-                    return $query->orderBy('price', 'desc');
+                    return $query->orderBy('salary', 'desc');
                 } else {
                     return $query->orderBy('id', 'desc');
                 }
             }, function ($query) {
                 return $query->orderBy('id', 'desc'); // desc => Z-A, asc => A-Z
-            });
+            })
+            ->paginate(40)
+            ->withQueryString();
+
+        $regions = Region::with('location')
+            ->orderBy('name')
+            ->get();
+
+        $locations = Location::orderBy('id')->get();
+
+        $times = Time::orderBy('id')->get();
+
+        $occupations = Occupation::orderBy('name', 'desc')->get();
+
+        $companies = Company::orderBy()->get();
+
+
+
 
     }
 }

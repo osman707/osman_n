@@ -15,7 +15,7 @@ class HomeController extends Controller
 
         return view('home.index')
             ->with([
-                'locations' => $locations,
+                'locations' => $locations
             ]);
     }
 }
