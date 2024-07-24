@@ -27,13 +27,13 @@ class ListingFactory extends Factory
         $time = Time::inRandomOrder()->first();
 
         return [
-            'title' => fake()->sentence,
+            'title' => $time->name . ' ' . $occupation->name,
             'occupation_id' => $occupation->id,
             'company_id' => $company->id,
             'time_id' => $time->id,
             'region_id' => $region->id,
             'location_id' => $region->location->id,
-            'description' => fake()->sentence,
+            'description' => fake()->sentence($nbWords = rand(20,50)),
             'salary' => $this->generateSalary(),
             'phone_number' => fake()->phoneNumber,
 

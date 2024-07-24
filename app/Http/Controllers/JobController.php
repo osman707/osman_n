@@ -18,8 +18,8 @@ class JobController extends Controller
             'q' => 'nullable|string|max:30',
             'company' => 'nullable|integer|min:1',
             'location' => 'nullable|integer|min:1',
-            'Occupation' => 'nullable|integer|min:1',
-            'Time' => 'nullable|integer|min:1',
+            'occupation' => 'nullable|integer|min:1',
+            'time' => 'nullable|integer|min:0',
             'minSalary' => 'nullable|numeric|min:0',
             'maxSalary' => 'nullable|numeric|min:0',
             'sortBy' => 'nullable|in:lowToHigh,highToLow',
@@ -29,15 +29,15 @@ class JobController extends Controller
         $f_location = $request->has('location') ? $request->location : null;
         $f_occupation = $request->has('occupation') ? $request->occupation : null;
         $f_time = $request->has('time') ? $request->time : null;
-        $f_sortBy = $request->has('sortBy') ? $request->sortBy : null;
         $f_minSalary = $request->has('minSalary') ? $request->minSalary : null;
         $f_maxSalary = $request->has('maxSalary') ? $request->maxSalary : null;
+        $f_sortBy = $request->has('sortBy') ? $request->sortBy : null;
 
 
         $objs = Listing::when(isset($f_q), function ($query) use ($f_q) {
             return $query->where(function ($query) use ($f_q) {
                 $query->where('title', 'like', '%' . $f_q . '%')
-                    ->orWhere('body', 'like', '%' . $f_q . '%');
+                    ->orWhere('description', 'like', '%' . $f_q . '%');
             });
         })
             ->when(isset($f_company), function ($query) use ($f_company) {
@@ -70,7 +70,7 @@ class JobController extends Controller
             }, function ($query) {
                 return $query->orderBy('id', 'desc'); // desc => Z-A, asc => A-Z
             })
-            ->paginate(40)
+            ->paginate(15)
             ->withQueryString();
 
         $regions = Region::with('location')
@@ -79,7 +79,7 @@ class JobController extends Controller
 
         $locations = Location::with('regions')->orderBy('name')->get();
 
-        $times = Time::orderBy('name')->get();
+        $times = Time::orderBy('id', 'asc')->get();
 
         $occupations = Occupation::orderBy('name', 'desc')->get();
 
@@ -97,13 +97,11 @@ class JobController extends Controller
                 'f_location' => $f_location,
                 'f_occupation' => $f_occupation,
                 'f_time' => $f_time,
-                '$f_minSalary' => $f_minSalary,
-                '$f_minSalary' => $f_minSalary,
+                'f_minSalary' => $f_minSalary,
+                'f_maxSalary' => $f_maxSalary,
                 'f_sortBy' => $f_sortBy,
             ]);
-
-
-
-
     }
+
+
 }

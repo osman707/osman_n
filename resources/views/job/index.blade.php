@@ -12,7 +12,7 @@
                 <div class="row g-3">
                     @forelse($objs as $obj)
                         <div class="col-12">
-                            @include('app.car')
+                            @include('app.job')
                         </div>
                     @empty
                         <div class="col-12">
