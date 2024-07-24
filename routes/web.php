@@ -14,5 +14,8 @@ Route::controller(JobController::class)
     ->name('jobs.')
     ->group(function () {
         Route::get('', 'index')->name('index');
+//        Route::post('/jobs', [JobController::class, 'create']);
+        Route::get('create', 'create')->name('create');
+        Route::post('', 'store')->name('store');
         Route::get('/{id}', 'show')->name('show')->where('id', '[0-9]+');
     });

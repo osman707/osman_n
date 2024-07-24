@@ -118,4 +118,55 @@ class JobController extends Controller
     }
 
 
+    public function store(Request $request)
+    {
+
+//
+            $request->validate([
+                'title' => 'required|string|max:255',
+                'description' => 'required|string',
+                'company_id' => 'required|integer|exists:companies,id',
+                'location_id' => 'required|integer|exists:locations,id',
+                'occupation_id' => 'required|integer|exists:occupations,id',
+                'time_id' => 'required|integer|exists:times,id',
+                'salary' => 'required|numeric|min:0',
+            ]);
+
+            $listing = new Listing();
+            $listing->title = $request->title;
+            $listing->description = $request->description;
+            $listing->company_id = $request->company;
+            $listing->location_id = $request->location;
+            $listing->occupation_id = $request->occupation;
+            $listing->time_id = $request->time;
+            $listing->salary = $request->salary;
+            $listing->save();
+
+
+    }
+
+    public function create() {
+
+        $regions = Region::with('location')
+            ->orderBy('id')
+            ->get();
+
+        $locations = Location::with('regions')->orderBy('name')->get();
+
+        $times = Time::orderBy('id', 'asc')->get();
+
+        $occupations = Occupation::orderBy('name', 'desc')->get();
+
+        $companies = Company::orderBy('name')->get();
+
+        return view('create.listing')
+            ->with([
+                'regions' => $regions,
+                'locations' => $locations,
+                'occupations' => $occupations,
+                'companies' => $companies,
+                'times' => $times,
+            ]);
+    }
+
 }
