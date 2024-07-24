@@ -123,7 +123,7 @@
                         <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="{{ $location->name }}">
                         <div class="card-body">
                             <h5 class="card-title">
-                                <a href=""
+                                <a href="{{ route('jobs.index', ['location' => $location->id]) }}"
                                    class="link-dark text-decoration-none">
                                     {{ $location->name }}
                                 </a>

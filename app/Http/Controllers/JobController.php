@@ -6,6 +6,7 @@ use App\Models\Company;
 use App\Models\Listing;
 use App\Models\Location;
 use App\Models\Occupation;
+use App\Models\Product;
 use App\Models\Region;
 use App\Models\Time;
 use Illuminate\Http\Request;
@@ -101,6 +102,19 @@ class JobController extends Controller
                 'f_maxSalary' => $f_maxSalary,
                 'f_sortBy' => $f_sortBy,
             ]);
+    }
+
+    public function show($id)
+    {
+
+        $listings = Listing::with('location', 'occupation', 'region', 'company', 'time')
+            ->findOrFail($id);
+
+        return view('job.show')
+            ->with([
+                'obj' => $listings,
+            ]);
+
     }
 
 
