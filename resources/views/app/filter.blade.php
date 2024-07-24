@@ -1,5 +1,5 @@
 <div class="container py-4">
-    <form action="{{ url()->current() }}" method="get" class="p-4 border rounded shadow-sm bg-light">
+    <form action="{{ url()->current() }}" method="get" class="p-4 border rounded shadow-lg bg-light">
 
         <div class="mb-4">
             <label for="q" class="form-label fw-semibold text-primary">Search</label>
@@ -13,6 +13,18 @@
                 @foreach($locations as $location)
                     <option value="{{ $location->id }}" {{ $location->id == $f_location ? 'selected':'' }}>
                         {{ $location->name }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <label for="company" class="form-label fw-semibold text-primary">Company</label>
+            <select class="form-select border-primary" id="company" name="company">
+                <option value>-</option>
+                @foreach($companies as $company)
+                    <option value="{{ $company->id }}" {{ $company->id == $f_company ? 'selected':'' }}>
+                        {{ $company->name }}
                     </option>
                 @endforeach
             </select>

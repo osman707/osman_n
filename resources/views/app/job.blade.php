@@ -1,7 +1,7 @@
 <div class="container py-4">
     <a href="{{ route('jobs.show', $obj->id) }}" class="text-decoration-none text-dark">
-        <div class="card shadow-sm mb-4">
-            <div class="card-header bg-primary text-white fw-semibold fs-4">
+        <div class="card shadow-lg mb-4">
+            <div class="card-header bg-primary-subtle text-primary-emphasis fw-semibold fs-4">
                 {{ $obj->title }}
             </div>
             <div class="card-body">
