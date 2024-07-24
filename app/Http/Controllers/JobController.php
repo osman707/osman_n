@@ -74,16 +74,33 @@ class JobController extends Controller
             ->withQueryString();
 
         $regions = Region::with('location')
-            ->orderBy('name')
+            ->orderBy('id')
             ->get();
 
-        $locations = Location::orderBy('id')->get();
+        $locations = Location::with('regions')->orderBy('name')->get();
 
-        $times = Time::orderBy('id')->get();
+        $times = Time::orderBy('name')->get();
 
         $occupations = Occupation::orderBy('name', 'desc')->get();
 
-        $companies = Company::orderBy()->get();
+        $companies = Company::orderBy('name')->get();
+
+        return view('job.index')
+            ->with([
+                'objs' => $objs,
+                'times' => $times,
+                'locations' => $locations,
+                'jobs' => $occupations,
+                'companies' => $companies,
+                'f_q' => $f_q,
+                'f_company' => $f_company,
+                'f_location' => $f_location,
+                'f_occupation' => $f_occupation,
+                'f_time' => $f_time,
+                '$f_minSalary' => $f_minSalary,
+                '$f_minSalary' => $f_minSalary,
+                'f_sortBy' => $f_sortBy,
+            ]);
 
 
 
