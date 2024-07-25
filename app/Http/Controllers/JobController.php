@@ -121,26 +121,33 @@ class JobController extends Controller
     public function store(Request $request)
     {
 
-//
-            $request->validate([
-                'title' => 'required|string|max:255',
-                'description' => 'required|string',
-                'company_id' => 'required|integer|exists:companies,id',
-                'location_id' => 'required|integer|exists:locations,id',
-                'occupation_id' => 'required|integer|exists:occupations,id',
-                'time_id' => 'required|integer|exists:times,id',
-                'salary' => 'required|numeric|min:0',
-            ]);
 
-            $listing = new Listing();
-            $listing->title = $request->title;
-            $listing->description = $request->description;
-            $listing->company_id = $request->company;
-            $listing->location_id = $request->location;
-            $listing->occupation_id = $request->occupation;
-            $listing->time_id = $request->time;
-            $listing->salary = $request->salary;
-            $listing->save();
+//
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'company_id' => 'required|integer|exists:companies,id', // company_id'nin geçerli bir id olduğundan emin olun
+            'location_id' => 'required|integer|exists:locations,id',
+            'region_id' => 'required|integer|exists:regions,id',
+            'phone_number' => 'required|string',
+            'occupation_id' => 'required|integer|exists:occupations,id',
+            'time_id' => 'required|integer|exists:times,id',
+            'salary' => 'required|integer',
+        ]);
+
+        $obj = new Listing();
+        $obj->title = $request->title;
+        $obj->description = $request->description;
+        $obj->company_id = $request->company_id;
+        $obj->location_id = $request->location_id;
+        $obj->region_id = $request->region_id;
+        $obj->phone_number = $request->phone_number;
+        $obj->occupation_id = $request->occupation_id;
+        $obj->time_id = $request->time_id;
+        $obj->salary = $request->salary;
+        $obj->save();
+
+        return redirect()->route('jobs.index')->with('success', 'Job listing created successfully.');
 
 
     }
@@ -151,13 +158,13 @@ class JobController extends Controller
             ->orderBy('id')
             ->get();
 
-        $locations = Location::with('regions')->orderBy('name')->get();
+        $locations = Location::orderBy('name')->get();
 
         $times = Time::orderBy('id', 'asc')->get();
 
         $occupations = Occupation::orderBy('name', 'desc')->get();
 
-        $companies = Company::orderBy('name')->get();
+        $companies = Company::orderBy('id')->get();
 
         return view('create.listing')
             ->with([

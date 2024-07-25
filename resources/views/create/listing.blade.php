@@ -1,28 +1,3 @@
-{{--<form action="{{route('jobs.create')}}" method="">--}}
-{{--    @csrf--}}
-{{--    <label for="title">Başlık:</label>--}}
-{{--    <input type="text" id="title" name="title" required>--}}
-
-{{--    <label for="description">Açıklama:</label>--}}
-{{--    <textarea id="description" name="description" required></textarea>--}}
-
-{{--    <label for="company_id">Şirket ID:</label>--}}
-{{--    <input type="number" id="company_id" name="company_id" required>--}}
-
-{{--    <label for="location_id">Lokasyon ID:</label>--}}
-{{--    <input type="number" id="location_id" name="location_id" required>--}}
-
-{{--    <label for="occupation_id">Meslek ID:</label>--}}
-{{--    <input type="number" id="occupation_id" name="occupation_id" required>--}}
-
-{{--    <label for="time_id">Zaman ID:</label>--}}
-{{--    <input type="number" id="time_id" name="time_id" required>--}}
-
-{{--    <label for="salary">Maaş:</label>--}}
-{{--    <input type="number" id="salary" name="salary" required>--}}
-
-{{--    <button type="submit">İlan Ver</button>--}}
-{{--</form>--}}
 @extends('layouts.app')
 
 @section('content')
@@ -31,10 +6,10 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header text-center">
-                        <h3>İş İlanı Ver</h3>
+                        <h3>Create Listing</h3>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('jobs.store') }}" method="POST">
+                        <form action="{{ route('jobs.store') }}" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
                                 <label for="title" class="form-label">Title</label>
@@ -45,47 +20,64 @@
                                 <textarea class="form-control" id="description" name="description" required></textarea>
                             </div>
                             <div class="mb-3">
-                                <label for="location" class="form-label fw-semibold text-primary">Location</label>
-                                <select class="form-select border-primary" id="location" name="location">
-                                    <option value>-</option>
-                                    @foreach($locations as $location)
-                                        <option value="{{ $location->id }}">
-                                            {{ $location->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <div class="mb-3">
-                                <label for="company" class="form-label fw-semibold text-primary">Company</label>
-                                <select class="form-select border-primary" id="company" name="company">
-                                    <option value>-</option>
+                                <label for="company_id" class="form-label">Company</label>
+                                <select class="form-select" id="company_id" name="company_id" required>
+                                    <option value="">Select a company</option>
                                     @foreach($companies as $company)
-                                        <option value="{{ $company->id }}">
-                                            {{ $company->name }}
-                                        </option>
+                                        <option value="{{ $company->id }}">{{ $company->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="time" class="form-label fw-semibold text-primary">Time</label>
-                                <select class="form-select border-primary" id="time" name="time">
-                                    <option value>-</option>
-                                    @foreach($times as $time)
-                                        <option value="{{ $time->id }}">
-                                            {{ $time->name }}
-                                        </option>
+                                <label for="location_id" class="form-label">Location</label>
+                                <select class="form-select" id="location_id" name="location_id" required>
+                                    <option value="">Select a location</option>
+                                    @foreach($locations as $location)
+                                        <option value="{{ $location->id }}">{{ $location->name }}</option>
                                     @endforeach
                                 </select>
-                            </div><div class="mb-3">
-                                <label for="salary" class="form-label">Salary</label>
-                                <input type="number" class="form-control" id="salary" name="salary" required>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100">İlan Ver</button>
+                            <div class="mb-3">
+                                <label for="phone_number" class="form-label">Phone Number</label>
+                                <input type="number" class="form-control" id="phone_number" name="phone_number" required min="0">
+                            </div>
+                            <div class="mb-3">
+                                <label for="region_id" class="form-label">Location</label>
+                                <select class="form-select" id="region_id" name="region_id" required>
+                                    <option value="">Select a region</option>
+                                    @foreach($regions as $region)
+                                        <option value="{{ $region->id }}">{{ $region->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="occupation_id" class="form-label">Occupation</label>
+                                <select class="form-select" id="occupation_id" name="occupation_id" required>
+                                    <option value="">Select an occupation</option>
+                                    @foreach($occupations as $occupation)
+                                        <option value="{{ $occupation->id }}">{{ $occupation->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="time_id" class="form-label">Time</label>
+                                <select class="form-select" id="time_id" name="time_id" required>
+                                    <option value="">Select a time</option>
+                                    @foreach($times as $time)
+                                        <option value="{{ $time->id }}">{{ $time->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="salary" class="form-label">Salary</label>
+                                <input type="number" class="form-control" id="salary" name="salary" required min="0">
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100">Create Listing</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
 @endsection
+c
