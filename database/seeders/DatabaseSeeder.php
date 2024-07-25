@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
             ->create();
 
         Listing::factory()
-        ->count(1)
+        ->count(500)
         ->create();
     }
 }
