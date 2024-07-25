@@ -38,11 +38,7 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="phone_number" class="form-label">Phone Number</label>
-                                <input type="number" class="form-control" id="phone_number" name="phone_number" required min="0">
-                            </div>
-                            <div class="mb-3">
-                                <label for="region_id" class="form-label">Location</label>
+                                <label for="region_id" class="form-label">Region</label>
                                 <select class="form-select" id="region_id" name="region_id" required>
                                     <option value="">Select a region</option>
                                     @foreach($regions as $region)
@@ -51,7 +47,7 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="occupation_id" class="form-label">Occupation</label>
+                                <label for="occupation_id" class="form-label">Job</label>
                                 <select class="form-select" id="occupation_id" name="occupation_id" required>
                                     <option value="">Select an occupation</option>
                                     @foreach($occupations as $occupation)
@@ -67,6 +63,10 @@
                                         <option value="{{ $time->id }}">{{ $time->name }}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="phone_number" class="form-label">Phone Number</label>
+                                <input type="number" class="form-control" id="phone_number" name="phone_number" required min="0">
                             </div>
                             <div class="mb-3">
                                 <label for="salary" class="form-label">Salary</label>
